@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Login } from './pages/index';
+import { AppRoutes } from './routes';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Login />
+        <AppRoutes />
     </React.StrictMode>,
     document.getElementById('root')
 );
