@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import Logo from '../../images/Logo_ioasys.svg';
 import Logout from '../../images/Logout.svg';
 import Search from '../../images/Search.svg';
 import Filters from '../../images/Filters.svg';
 import Book from '../../components/books/books';
+import FilterBook from '../../components/filterBooks/filter';
 
 export const Home = () => {
+    const [openFilter, setOpenFilter] = useState<boolean>(false);
+
+    function openFilterBook(): void {
+        setOpenFilter(!openFilter);
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -24,7 +31,7 @@ export const Home = () => {
                     <img src={Search} alt="Pesquisar" />
                 </div>
                 <div className={styles.filter_select}>
-                    <img src={Filters} alt="Filtrar livros" />
+                    <img src={Filters} alt="Filtrar livros" onClick={openFilterBook} />
                 </div>
             </div>
             <div className={styles.books}>
@@ -32,6 +39,7 @@ export const Home = () => {
                 <Book />
                 <Book />
             </div>
+            {openFilter ? <FilterBook displayFilter={openFilterBook} /> : ''}
         </div>
     );
 };
