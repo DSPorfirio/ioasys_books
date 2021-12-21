@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './books.module.scss';
+import styles from './index.module.scss';
 import BookImage from '../../images/Book (1).svg';
 
 interface DataBooks {

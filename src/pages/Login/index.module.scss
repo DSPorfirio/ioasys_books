@@ -9,7 +9,7 @@
 }
 
 .container {
-  background-image: url("../images/Background.svg");
+  background-image: url("../../images/Background.svg");
   background-size: cover;
   height: 100vh;
   width: 100%;
@@ -23,6 +23,7 @@
     justify-content: center;
     width: 100%;
     padding: 1rem;
+    max-width: 368px;
 
     .header {
       display: flex;
@@ -126,6 +127,22 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .container {
+    background-image: url("../../images/Background_desktop.svg");
+  }
+}
+
+@media (min-width: 1000px) {
+  .container {
+    justify-content: flex-start;
+
+    form {
+      margin: 7rem;
     }
   }
 }

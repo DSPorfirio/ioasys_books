@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.scss';
-import Logo from '../images/Logo_ioasys.svg';
+import Logo from '../../images/Logo_ioasys.svg';
 
 export const Login = () => {
 

@@ -4,9 +4,9 @@ import Logo from '../../images/Logo_ioasys.svg';
 import Logout from '../../images/Logout.svg';
 import Search from '../../images/Search.svg';
 import Filters from '../../images/Filters.svg';
-import Book from '../../components/books/books';
-import FilterBook from '../../components/filterBooks/filter';
-import { Details } from '../../components/details';
+import Book from '../../components/books';
+import FilterBook from '../../components/modals/filterBooks';
+import { Details } from '../../components/modals/details';
 
 export const Home = () => {
     const [openFilter, setOpenFilter] = useState<boolean>(false);
@@ -49,6 +49,31 @@ export const Home = () => {
                 </div>
             </div>
             <div className={styles.books}>
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
+                <Book data={data_book} onClick={displayDetailsBook} />
                 <Book data={data_book} onClick={displayDetailsBook} />
                 <Book data={data_book} onClick={displayDetailsBook} />
                 <Book data={data_book} onClick={displayDetailsBook} />

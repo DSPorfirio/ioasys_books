@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from './filter.module.scss';
-import Close from '../../images/Close_icon.svg';
+import styles from './index.module.scss';
+import Close from '../../../images/Close_icon.svg';
 
 interface FilterBookProps {
     displayFilter: () => void;
@@ -23,7 +23,6 @@ export default function FilterBook({ displayFilter } : FilterBookProps) {
     const [year2020, setYear2020] = useState<boolean>(false);
     const [year2021, setYear2021] = useState<boolean>(false);
    
-
     function submitFormFiltersBook(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         displayFilter();

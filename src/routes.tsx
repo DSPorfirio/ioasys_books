@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Login } from './pages/index';
+import { Login } from './pages/Login/index';
 import { Home } from './pages/home/index';
 
 export const AppRoutes = () => {
