@@ -2,9 +2,10 @@ import React, { FormEvent, useState } from 'react';
 import styles from './index.module.scss';
 import Logo from '../../images/Logo_ioasys.svg';
 import { useAuth } from '../../hooks/useAuth';
+import { MiniAlert } from '../../components/miniAlert';
 
 export const Login = () => {
-    const { handleLogin } = useAuth();
+    const { handleLogin, statusLogin } = useAuth();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -37,6 +38,8 @@ export const Login = () => {
                                 <button type='submit'>Entrar</button>
                             </div>
                         </label>
+                        {statusLogin.status == 'error' && <MiniAlert status={statusLogin.status} text={statusLogin.text}/>}
+                        
                     </div> 
                 </div>
             </form>

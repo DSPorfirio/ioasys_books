@@ -48,7 +48,7 @@ export interface DetailsPropsApi {
 }
 
 export const Home = () => {
-    const  { getAuth } = useAuth();
+    const  { getAuth, handleLogout } = useAuth();
     const [openFilter, setOpenFilter] = useState<boolean>(false);
     const [openDetails, setOpenDetails] = useState<boolean>(false);
     const [booksApiProps, setBooksApiProps] = useState<BooksPropsApi[]>();
@@ -113,7 +113,7 @@ export const Home = () => {
                     <img src={Logo} alt="Ioasys" />
                     <p>Books</p>
                 </div>
-                <button>
+                <button onClick={handleLogout}>
                     <img src={Logout} alt="Sair do app" />
                 </button>
             </div>

@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState, SetStateAction} from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 
@@ -14,10 +14,17 @@ export interface  AuthProps {
     refresh_token: string,
 }
 
+interface StatusLogin {
+    status: string,
+    text: string,
+}
+
 interface AuthContextProps {
     auth: AuthProps,
     userInfo: UserProps,
+    statusLogin: StatusLogin,
     handleLogin: (email: string, password: string) => void,
+    handleLogout: () => void,
     getAuth: () => string | null,
 }
 
@@ -29,6 +36,10 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({children} : AuthProviderProps) => {
     const navigate = useNavigate();
+    const [statusLogin, setStatusLogin] = useState({
+        status: '',
+        text: '',
+    });
 
     const [userInfo, setUserInfo] = useState<UserProps>({
         id_user: '',
@@ -61,6 +72,11 @@ export const AuthProvider = ({children} : AuthProviderProps) => {
                     refresh_token: response.headers.refresh_token ?? '',
                 });
 
+                setStatusLogin({
+                    status: 'sucess',
+                    text: ''
+                });
+
                 localStorage.setItem('name_user', response.data.name ?? '');
                 localStorage.setItem('authorization', response.headers.authorization ?? '');
                 
@@ -68,14 +84,27 @@ export const AuthProvider = ({children} : AuthProviderProps) => {
             })
             .catch((error) => {
                 console.log(error);
+                setStatusLogin({
+                    status: 'error',
+                    text: 'Email e/ou senha incorretos.',
+                });
             });
+    };
+
+    const handleLogout = (): void => {
+        localStorage.removeItem('authorization');
+        localStorage.removeItem('name_user');
+        localStorage.removeItem('refresh_token');
+        navigate('/login');
     };
 
     return(
         <AuthContext.Provider value={{
             auth, 
             userInfo,
+            statusLogin,
             handleLogin,
+            handleLogout,
             getAuth,
         }}>
             {children}
