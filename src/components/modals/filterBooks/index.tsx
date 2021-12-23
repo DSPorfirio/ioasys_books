@@ -32,8 +32,8 @@ export default function FilterBook({ displayFilter } : FilterBookProps) {
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.close}>
-                    <button>
-                        <img src={Close} alt="Fechar filtros" onClick={displayFilter} />
+                    <button onClick={displayFilter}>
+                        <img src={Close} alt="Fechar filtros" />
                     </button>
                 </div>
                 <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitFormFiltersBook(e)}>

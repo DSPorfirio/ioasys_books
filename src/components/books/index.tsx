@@ -1,37 +1,31 @@
 import React from 'react';
 import styles from './index.module.scss';
-import BookImage from '../../images/Book (1).svg';
-
-interface DataBooks {
-    name: string,
-    author: string,
-    pages: number,
-    editor: string,
-    date: string,
-}
+import { BooksPropsApi } from '../../pages/home';
 
 interface BookProps {
-    data: DataBooks,
+    data: BooksPropsApi,
     onClick?: () => void,
 }
 
 export default function Book({ data, onClick }: BookProps){
     return (
-        
         <div className={styles.container} onClick={onClick}>
-            <img src={BookImage} alt="" />
+            <img src={data.imageUrl} alt="" />
             <div className={styles.info}>
                 <div className={styles.info_top}>
-                    <p>{data.name}</p>
-                    <p>{data.author}</p>
+                    <p>{data.title}</p>
+                    {data.authors && data.authors.map((data, key = 0) => {
+                        key++;
+                        return <p key={key}>{ data }</p>;
+                    })}
+                    
                 </div>
                 <div className={styles.info_bottom}>
-                    <p>{data.pages + ' Páginas'}</p>
-                    <p>{data.editor}</p>
-                    <p>{data.date}</p>
+                    <p>{data.pageCount + ' Páginas'}</p>
+                    <p>{data.publisher}</p>
+                    <p>{data.published}</p>
                 </div>
             </div>
         </div>
-        
     );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './index.module.scss';
 import Logo from '../../images/Logo_ioasys.svg';
 import Logout from '../../images/Logout.svg';
@@ -7,10 +7,88 @@ import Filters from '../../images/Filters.svg';
 import Book from '../../components/books';
 import FilterBook from '../../components/modals/filterBooks';
 import { Details } from '../../components/modals/details';
+import { api } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
+
+export interface BooksPropsApi {
+    authors: [string],
+    title: string,
+    description: string,
+    pageCount: number,
+    category: string,
+    imageUrl: string,
+    language: string,
+    isbn10: string,
+    isbn13: string,
+    publisher: string,
+    published: number,
+    id: string,
+}
+
+interface ApiProps {
+    data: BooksPropsApi[],
+    page: number,
+    totalItems: number,
+    totalPages: number,
+}
+
+export interface DetailsPropsApi {
+    id: string,
+    title: string,
+    description: string,
+    authors: [string],
+    pageCount: number,
+    category: string,
+    imageUrl: string,
+    isbn10: string,
+    isbn13: string,
+    language: string,
+    publisher: string,
+    published: number
+}
 
 export const Home = () => {
+    const  { getAuth } = useAuth();
     const [openFilter, setOpenFilter] = useState<boolean>(false);
     const [openDetails, setOpenDetails] = useState<boolean>(false);
+    const [booksApiProps, setBooksApiProps] = useState<BooksPropsApi[]>();
+    const [isLoadingBooks, setIsLoadingBooks] = useState<boolean>(true);
+    const [isLoadingDetails, setIsLoadingDetails] = useState<boolean>(false);
+    const [detailsBook, setDetailsBook] = useState<DetailsPropsApi>();
+
+    const getBooks = useCallback(() => {
+        setIsLoadingBooks(true);
+        api.get('/books', {
+            headers: {
+                Authorization: 'Bearer|' + getAuth()
+            },
+            params: {
+                page: 1,
+                amount: 15,
+            }
+        }).then((response) => {
+            setBooksApiProps(response.data.data);
+            setIsLoadingBooks(false);
+        }).catch((error) => {
+            console.log(error);
+            setIsLoadingBooks(false);
+        });
+    }, []);
+
+    const getBookDetails = useCallback((id_book: string) => {
+        setIsLoadingDetails(true);
+        api.get(`/books/${id_book}`, {
+            headers: {
+                Authorization: 'Bearer|' + getAuth()
+            }
+        }).then((response) => {
+            setDetailsBook(response.data);
+            setIsLoadingDetails(false);
+        }).catch((error) => {
+            console.log(error);
+            setIsLoadingDetails(false);
+        });
+    }, []);
 
     function displayFilterBook(): void {
         setOpenFilter(!openFilter);
@@ -20,13 +98,13 @@ export const Home = () => {
         setOpenDetails(!openDetails);
     }
 
-    const data_book  = {
-        name: 'Nome do livro',
-        author: 'Autor do livro',
-        pages: 22,
-        editor: 'Editora',
-        date: 'Data de lançamento'
-    };
+    useEffect(() => {
+        getBooks();
+    }, []);
+
+    if(isLoadingBooks) {
+        return <h1>Animação carregando</h1>;
+    }
 
     return (
         <div className={styles.container}>
@@ -49,37 +127,15 @@ export const Home = () => {
                 </div>
             </div>
             <div className={styles.books}>
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
-                <Book data={data_book} onClick={displayDetailsBook} />
+                {booksApiProps && booksApiProps.map((data) => {
+                    return <Book data={data} key={data.id} onClick={() => {
+                        displayDetailsBook();
+                        getBookDetails(data.id);
+                    }} />;
+                })}
             </div>
-            {openFilter ? <FilterBook displayFilter={displayFilterBook} /> : ''}
-            {openDetails ? (<Details displayDetails={displayDetailsBook} />) : ''}
+            {openFilter && <FilterBook displayFilter={displayFilterBook} />}
+            {openDetails && <Details data={detailsBook} loading={isLoadingDetails} displayDetails={displayDetailsBook} />}
         </div>
     );
 };
