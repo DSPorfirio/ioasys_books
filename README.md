@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# Ioasys Books
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esse projeto em ReactJs com Typescript foi realizado de acordo com a  [Documentação da Ioasys](https://bitbucket.org/ioasys/desafio-books-frontend/src/master/).
 
-## Available Scripts
+## Início
 
-In the project directory, you can run:
+O projeto foi realizado utilizando Docker, para roda-lo você pode utilizar:
 
-### `yarn start`
+### `docker-compose up -d --build`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O comando reliza a instalação das bibliotecas de acordo com package.json e faz compilação.\
+Abra [http://localhost:3000](http://localhost:3000) para acessar no navegador.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Caso queira entrar dentro do container via terminal, basta rodar:
 
-### `yarn test`
+### `docker exec -it ioasys_books sh`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Dentro do container podemos utilizar os comandos já conhecidos como yarn install, yarn build, yarn start ...\
+Nada impede de rodar o projeto sem a utilização do docker, basta rodar os comandos normalmente.
 
-### `yarn build`
+## Informações do desenvolvimento
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O projeto foi desenvolvido utilizando Typescript, cultura DevOps, conceito de estilização Mobile First,\
+utilizando pré-processadores de CSS como SASS, biblioteca Eslint.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### O que faltou?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Integração do filtro (funcionalidade adicional) com a api,\
+Sistema de paginação dos livros,\
+Sistema de rotas privadas e validador de token,\
+Loading com animação para o carregamento das páginas.
 
-### `yarn eject`
+#### Preview
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![image](https://user-images.githubusercontent.com/44443621/147184083-9a53c21d-f547-4d94-9f1a-6c33e86ee65a.png)
+![image](https://user-images.githubusercontent.com/44443621/147184187-5c30bebf-0fde-4035-ade8-84a9b0f57a23.png)
+![image](https://user-images.githubusercontent.com/44443621/147184583-2ffcf77b-9dac-4863-90ca-d3a59d6b77a0.png)
+![image](https://user-images.githubusercontent.com/44443621/147184863-4326f4d2-169b-4278-b5e0-fae312d62dc0.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
